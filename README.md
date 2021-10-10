@@ -10,6 +10,7 @@ The package is based on [mmenu](https://mmenujs.com/).
 4. Login, click on the Settings icon on the right of the top bar, click 'Extend concrete5'.
 5. Click on the 'Install' button next to 'Mobile Menu Components'.
 6. Add a link within your themes design with `href` set to `#mmenu`:
+   
 e.g. `<a href="#mmenu">Open mobile menu</a>`
 
 ## License
