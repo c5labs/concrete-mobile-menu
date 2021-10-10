@@ -1,13 +1,10 @@
 {
-  "name": "Concrete_Mobile_Menu_Package",
-  "version": "1.0.0",
+  "name": "concrete-mobile-menu",
+  "version": "2.0.0",
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "autoprefixer": "^6.1.2",
-    "gulp": "^3.9.0",
-    "gulp-less": "^3.0.5",
-    "gulp-minify-css": "^1.2.2",
-    "less-plugin-autoprefix": "^1.5.1"
-  }
+  "dependencies": {
+    "mmenu-js": "^8.5.24"
+  },
+  "devDependencies": {}
 }

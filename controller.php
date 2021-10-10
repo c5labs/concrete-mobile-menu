@@ -38,7 +38,9 @@ class Controller extends Package
      *
      * @var string
      */
-    protected $pkgVersion = '1.0';
+    protected $pkgVersion = '2.0';
+
+    
 
     /**
      * On CMS boot.
@@ -58,10 +60,23 @@ class Controller extends Package
                 if (!$c->isEditMode()) {
                     $r->requireAsset('mmenu');
 
+                    // Add a site name frontend JS variable.
                     $js = "<script>var CCM_SITE_NAME = '".h(\Config::get('concrete.site'))."';</script>";
-
                     $v = \View::getInstance();
                     $v->addHeaderItem($js);
+                    
+                    // Inject the menu structure at the bottom of the page.
+                    ob_start();
+                    $bt = \Concrete\Core\Block\BlockType\BlockType::getByHandle('autonav');
+                    $bt->controller->orderBy                    = 'display_asc';
+                    $bt->controller->displayPages               = 'top';
+                    $bt->controller->displaySubPages            = 'all';
+                    $bt->controller->displaySubPageLevels       = 'all';
+                    $bt->render('templates/mmenu');
+                    $contents = ob_get_contents();
+                    ob_end_clean();
+
+                    $v->addFooterItem($contents);
                 }
             }
         });
@@ -125,9 +140,9 @@ class Controller extends Package
         $al->register(
             'javascript',
             'mmenu/js',
-            'assets/mmenu/js/jquery.mmenu.min.js',
+            'node_modules/mmenu-js/dist/mmenu.js',
             array(
-                'version' => '3.6.6', 'position' => Asset::ASSET_POSITION_FOOTER,
+                'version' => '8.5.24', 'position' => Asset::ASSET_POSITION_FOOTER,
                 'minify' => true, 'combine' => true
             ),
             $this
@@ -136,9 +151,9 @@ class Controller extends Package
         $al->register(
             'css',
             'mmenu/css',
-            'assets/styles.css',
+            'node_modules/mmenu-js/dist/mmenu.css',
             array(
-                'version' => '3.6.6', 'position' => Asset::ASSET_POSITION_FOOTER,
+                'version' => '8.5.24', 'position' => Asset::ASSET_POSITION_FOOTER,
                 'minify' => true, 'combine' => true
             ),
             $this
@@ -150,9 +165,9 @@ class Controller extends Package
         $al->register(
             'javascript',
             'mmenu/bootstrap',
-            'assets/bootstrap.js',
+            'bootstrap.js',
             array(
-                'version' => '0.9.0', 'position' => Asset::ASSET_POSITION_FOOTER,
+                'version' => '2.0.0', 'position' => Asset::ASSET_POSITION_FOOTER,
                 'minify' => true, 'combine' => true
             ),
             $this
