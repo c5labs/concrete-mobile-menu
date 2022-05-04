@@ -57,7 +57,7 @@ class Controller extends Package
             if ($c instanceof Page) {
                 $r = ResponseAssetGroup::get();
 
-                if (!$c->isEditMode()) {
+                if (!$c->isEditMode() && !$c->isAdminArea()) {
                     $r->requireAsset('mmenu');
 
                     // Add a site name frontend JS variable.
